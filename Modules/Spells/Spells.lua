@@ -89,24 +89,3 @@ function ham.Spell:getCd()
 	end
 	return -1
 end
----spell ids for the spells that are supported by the addon
----@type table<string, Spell>
-ham.supportedSpells = {}
-for spellId,spellName in pairs(defaultSpells) do
-	print(spellId,spellName)
-	ham.supportedSpells[spellId] = ham.Spell:new(spellId, spellName)
-	DevTool:AddData(ham.supportedSpells[spellId],spellName)
-end
-function AddNS()
-	DevTool:AddData(ham,"hamadded")
-	for spellId,spellobj in pairs(ham.supportedSpells) do
-		DevTool:AddData(ham.supportedSpells[spellId]:getCd(),spellobj:getName())
-	end
-end
-test_frame = CreateFrame("Frame")
-test_frame:RegisterEvent("PLAYER_ENTERING_WORLD")
-test_frame:SetScript("OnEvent", function(self, event, ...)
-	for spellId,spellName in pairs(defaultSpells) do
-		ham.supportedSpells[spellId]:getCd()
-	end
-end)
