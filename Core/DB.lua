@@ -1,4 +1,5 @@
-local addonName, ham = ...
+---@class ham
+local ham = select(2,...)
 ham.defaults = {
     cdReset = false,
     stopCast = false,

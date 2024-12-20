@@ -2,14 +2,14 @@
 ## Interface-Classic: 11505
 ## Interface-WOTLKC: 30403
 ## Interface-Cata: 40401
-## Version: 3.8.5
-## Title: Auto Potion
+## Version: 3.8.6
+## Title: Simple Auto Potion
 ## Author: ollidiemaus
-## Notes: Updates the Macro AutoPotion to use either Healthstone or the highest Potion found in Bags 
-## Notes-zhCN: 自动药水循环宏，使用治疗石或背包中的最高等级治疗药水 
+## Notes: Updates the Macro AutoPotion to use either Healthstone or the highest Potion found in Bags
+## Notes-zhCN: 自动药水循环宏，使用治疗石或背包中的最高等级治疗药水
 ## X-Curse-Project-ID: 312940
 ## X-Wago-ID: yQKybBG7
-## SavedVariables: HAMDB
+## SavedVariables: HAMDB, AutoPotionDB
 
 embeds.xml
 Locales\Locales.xml

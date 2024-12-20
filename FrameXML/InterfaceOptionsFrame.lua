@@ -1,11 +1,13 @@
+---@class ham
+local ham = select(2,...)
+local addonName = select(2,...)
 local L = LibStub("AceLocale-3.0"):GetLocale("AutoPotion")
-local addonName, ham = ...
 local isRetail = (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE)
 local isClassic = (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC)
 local isWrath = (WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC)
 local isCata = (WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC)
 
----@class Frame
+---@class settingsFrame: frame
 ham.settingsFrame = CreateFrame("Frame")
 local ICON_SIZE = 50
 local PADDING_CATERGORY = 60
@@ -36,7 +38,7 @@ function ham.settingsFrame:updateConfig(option, value)
 end
 
 function ham.settingsFrame:OnEvent(event, addOnName)
-	if addOnName == "AutoPotion" then
+	if addOnName == addonName then
 		if event == "ADDON_LOADED" then
 			HAMDB = HAMDB or CopyTable(ham.defaults)
 			if HAMDB.activatedSpells == nil then
@@ -223,7 +225,7 @@ function ham.settingsFrame:InitializeOptions()
 	behaviourTitle:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -30)
 	behaviourTitle:SetText(L["Addon Behaviour"])
 
-	-------------  Stop Casting  -------------	
+	-------------  Stop Casting  -------------
 	local stopCastButton = CreateFrame("CheckButton", nil, self.content, "InterfaceOptionsCheckButtonTemplate")
 	stopCastButton:SetPoint("TOPLEFT", behaviourTitle, 0, -PADDING)
 	---@diagnostic disable-next-line: undefined-field
@@ -243,7 +245,7 @@ function ham.settingsFrame:InitializeOptions()
 	stopCastButton:SetChecked(HAMDB.stopCast)
 	lastStaticElement = stopCastButton
 
-	-------------  Shortest Cooldown  -------------	
+	-------------  Shortest Cooldown  -------------
 	local cdResetButton = CreateFrame("CheckButton", nil, self.content, "InterfaceOptionsCheckButtonTemplate")
 	cdResetButton:SetPoint("TOPLEFT", lastStaticElement, 0, -PADDING)
 	---@diagnostic disable-next-line: undefined-field
@@ -254,7 +256,7 @@ function ham.settingsFrame:InitializeOptions()
 	cdResetButton:SetChecked(HAMDB.cdReset)
 	lastStaticElement = cdResetButton
 
-	-------------  Healthstone Priority  -------------	
+	-------------  Healthstone Priority  -------------
 	local raidStoneButton = CreateFrame("CheckButton", nil, self.content, "InterfaceOptionsCheckButtonTemplate")
 	raidStoneButton:SetPoint("TOPLEFT", lastStaticElement, 0, -PADDING)
 	---@diagnostic disable-next-line: undefined-field

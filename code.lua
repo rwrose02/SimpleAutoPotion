@@ -1,11 +1,43 @@
+---@class ham shared addon table
+local ham = select(2,...)
+---@class addonName: string addonName
+local addonName = select(1,...)
+DevTool:AddData(ham,"ns")
+DevTool:AddData(addonName,"addonName")
 local L = LibStub("AceLocale-3.0"):GetLocale("AutoPotion")
-local addonName, ham = ...
 local macroName = L["AutoPotion"]
 local isRetail = (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE)
 local isClassic = (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC)
 local isWrath = (WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC)
 local isCata = (WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC)
 
+-- Load Saved Variables
+local HAMDB = HAMDB or {}
+DevTool:AddData(HAMDB,"HAMDB")
+local initFrame, initEvents = CreateFrame("Frame"), {}
+function initEvents:PLAYER_ENTERING_WORLD(...)
+	--- HAMDB has never been initialized
+	DevTool:AddData(HAMDB,"HAMDB")
+	if HAMDB == nil then
+		AutoPotionDB = {}
+	end
+	if HAMDB ~= nil then
+		AutoPotionDB = HAMDB
+	end
+	DevTool:AddData(AutoPotionDB,"AutoPotionDB")
+end
+function initEvents:PLAYER_LEAVING_WORLD(...)
+  if HAMDB ~= nil then
+		AutoPotionDB = HAMDB
+	end
+
+end
+initFrame:SetScript("OnEvent", function(self, event, ...)
+  initEvents[event](self) -- call one of the functions above
+end)
+for k, v in pairs(initEvents) do
+  initFrame:RegisterEvent(k) -- Register all events for which handlers have been defined
+end
 -- Configuration options
 -- Use in-memory options as HAMDB updates are not persisted instantly.
 -- We'll also use lazy initialization to prevent early access issues.
@@ -26,9 +58,10 @@ setmetatable(ham, {
   end
 })
 
-ham.debug = false
+ham.debug = true
 ham.tinkerSlot = nil
-ham.myPlayer = ham.Player.new()
+---@class myPlayer: Player
+ham.myPlayer = ham.Player:new()
 
 local spellsMacroString = ''
 local itemsMacroString = ''
